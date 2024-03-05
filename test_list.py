@@ -12,7 +12,7 @@ for key in copy_lis:
     if lis[key] < 2:
         del(lis[key])
 
-print(copy_lis)
+# print(copy_lis)
 print(lis)
 # print(lis)
 # lis[1]=10
