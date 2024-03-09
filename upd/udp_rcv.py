@@ -2,7 +2,7 @@ import socket
 
 UDP_IP = "127.0.0.1"
 RECEIVE_PORT = 5005
-SEND_PORT = 5006
+# SEND_PORT = 5006
 
 # Create a UDP socket for receiving
 receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -18,4 +18,4 @@ while True:
     print(f"Received message: {message} from {addr}")
 
     # Send the received data to port 5006
-    send_sock.sendto(data, (UDP_IP, SEND_PORT))
+    # send_sock.sendto(data, (UDP_IP, SEND_PORT))

@@ -1,12 +1,21 @@
 from pymavlink import mavutil
+import time
 
 # Start a connection listening on a UDP port
-the_connection = mavutil.mavlink_connection('udpin:localhost:14540')
+the_connection = mavutil.mavlink_connection('udpin:localhost:14550')
 
-# Wait for the first heartbeat
-#   This sets the system and component ID of remote system for the link
-the_connection.wait_heartbeat()
-print("Heartbeat from system (system %u component %u)" % (the_connection.target_system, the_connection.target_component))
+# Set the parameters for the HEARTBEAT message
+heartbeat_params = (6, 8, 192, 0, 3, 0)
 
-# Once connected, use 'the_connection' to get and send messages
-the_connection = mavutil.mavlink_connection('udpout:localhost:14540')
+while True:
+    # Create a HEARTBEAT message without sending it
+    heartbeat_msg = the_connection.mav.heartbeat_encode(*heartbeat_params)
+
+    # Print the details of the message
+    print(f"Sending HEARTBEAT message: {heartbeat_msg}")
+
+    # Send the HEARTBEAT message
+    the_connection.mav.send(heartbeat_msg)
+
+    # Add a delay if needed
+    time.sleep(1)
