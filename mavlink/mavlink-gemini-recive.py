@@ -5,7 +5,8 @@ sysid = 1
 compid = mavutil.mavlink.MAV_COMP_ID_GIMBAL  # Assuming Gimbal component
 
 # Define UDP connection details (localhost and port - change port if needed)
-server_address = ("127.0.0.1", 14550)
+server_address = ("localhost", 14550)
+# allowed_client_ip = "192.168.0.140"
 
 # Create a UDP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -18,19 +19,13 @@ try:
         # Unpack the received data into a MAVLink object
         # msg = mavutil.mavlink.MAVLink(data, 2, 1)
 
-        data = data.decode("utf-8")
-        msg = mavutil.mavlink.MAVLink(data, 2, 1)
-        print(data)
-        print(type(data))
-        break
-        
+        # data = data.decode("utf-8")
+        # msg = mavutil.mavlink.MAVLink(data, 2, 1)
+        # print(data)
+        # print(type(data))
 
-        # Access the fields of the unpacked message
-        # print("Received MAVLink Message:")
-        # print("Type:", msg.get_type())
-        # print("Autopilot:", msg.autopilot)
-        # print("Base Mode:", msg.base_mode)
-        # Add more fields as needed
+        print(data,"\n")
+        
 
 except KeyboardInterrupt:
     exit

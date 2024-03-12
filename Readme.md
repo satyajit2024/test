@@ -98,6 +98,16 @@ mavlink_connection.mav.heartbeat_send(
 
 ) 
 
+or 
+
+mavutil.mavlink.MAVLink_heartbeat_message(
+    type=mavutil.mavlink.MAV_TYPE_GCS,  # or MAV_TYPE_ONBOARD_CONTROLLER if applicable
+    autopilot=mavutil.mavlink.MAV_AUTOPILOT_INVALID,
+    base_mode=mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
+    custom_mode=0,  # MAV_MODE_FLAG_TEST_ENABLED
+    system_status=0,  # MAV_MODE_FLAG_AUTO_ENABLED
+    mavlink_version=0,  # MAV_MODE_FLAG_GUIDED_ENABLED
+)
   
 
 SYS_STATUS Message Example: 
@@ -132,6 +142,24 @@ mavlink_connection.mav.sys_status_send(
 
 ) 
 
+or 
+
+mavutil.mavlink.MAVLink_sys_status_message(
+        onboard_control_sensors_present=0xFFFF,  # Replace with actual sensor flags
+        onboard_control_sensors_enabled=0xFFFF,  # Replace with actual sensor flags
+        onboard_control_sensors_health=0xFFFF,   # Replace with actual sensor flags
+        load=50,  # Replace with actual system load
+        voltage_battery=12000,  # Replace with actual battery voltage in millivolts
+        current_battery=50,  # Replace with actual battery current in centiamps
+        battery_remaining=80,  # Replace with actual battery remaining percentage
+        drop_rate_comm=0,  # Replace with actual communication drop rate
+        errors_comm=0,  # Replace with actual communication errors
+        errors_count1=0,  # Replace with actual error count 1
+        errors_count2=0,  # Replace with actual error count 2
+        errors_count3=0,  # Replace with actual error count 3
+        errors_count4=0,  # Replace with actual error count 4
+    )
+
   
 
 GPS_RAW_INT Message Example: 
@@ -160,7 +188,20 @@ mavlink_connection.mav.gps_raw_int_send(
 
 ) 
 
-  
+or 
+
+mavutil.mavlink.MAVLink_gps_raw_int_message(
+    time_usec=123456789,    # Replace with actual timestamp in microseconds
+    fix_type=3,             # Replace with actual fix type (e.g., 3 for 3D fix)
+    lat=473598120,          # Replace with actual latitude in degrees * 1e7
+    lon=857901234,          # Replace with actual longitude in degrees * 1e7
+    alt=100000,             # Replace with actual altitude in millimeters
+    eph=100,                # Replace with actual estimated horizontal position error
+    epv=150,                # Replace with actual estimated vertical position error
+    vel=1500,               # Replace with actual ground speed in cm/s
+    cog=3000,               # Replace with actual course over ground in degrees * 100
+    satellites_visible=10   # Replace with actual number of visible satellites
+)
 
 ATTITUDE Message Example: 
 
@@ -182,6 +223,18 @@ mavlink_connection.mav.attitude_send(
 
 ) 
 
+
+or
+
+mavutil.mavlink.MAVLink_attitude_message(
+    time_boot_ms=123456,    # Replace with actual timestamp in milliseconds
+    roll=0.5,               # Replace with actual roll angle in radians
+    pitch=0.3,              # Replace with actual pitch angle in radians
+    yaw=1.2,                # Replace with actual yaw angle in radians
+    rollspeed=0.1,          # Replace with actual roll rate in radians/second
+    pitchspeed=0.05,        # Replace with actual pitch rate in radians/second
+    yawspeed=0.02           # Replace with actual yaw rate in radians/second
+)
   
 
 MISSION_ITEM Message Example: 
@@ -214,6 +267,25 @@ mavlink_connection.mav.mission_item_send(
 
 ) 
 
+
+or
+
+mavutil.mavlink.MAVLink_mission_item_message(
+    target_system=1,           # Target system ID
+    target_component=compid,   # Target component ID
+    seq=0,                     # Sequence number of the mission item
+    frame=mavutil.mavlink.MAV_FRAME_GLOBAL,  # Coordinate frame (MAV_FRAME_GLOBAL for global coordinates)
+    command=mavutil.mavlink.MAV_CMD_NAV_WAYPOINT,  # Command to perform (NAV_WAYPOINT for a simple waypoint)
+    current=0,                 # Set to 1 if this is the current mission item
+    autocontinue=1,            # Set to 1 to continue the mission to the next item
+    param1=0.0,                # Command-specific parameter 1 (e.g., latitude for NAV_WAYPOINT)
+    param2=0.0,                # Command-specific parameter 2 (e.g., longitude for NAV_WAYPOINT)
+    param3=0.0,                # Command-specific parameter 3
+    param4=0.0,                # Command-specific parameter 4
+    x=0.0,                     # X coordinate (used for other frame types, set to 0.0 for global frame)
+    y=0.0,                     # Y coordinate (used for other frame types, set to 0.0 for global frame)
+    z=10.0                     # Altitude (used for other frame types, set to 10.0 meters for global frame)
+)
   
 
 COMMAND_LONG Message Example: 
@@ -244,6 +316,20 @@ mavlink_connection.mav.command_long_send(
 
 ) 
 
+
+mavutil.mavlink.MAVLink_command_long_message(
+    target_system=1,        # Target system ID
+    target_component=compid,   # Target component ID
+    command=400,            # Command ID, refer to MAV_CMD enumeration for specific command
+    confirmation=0,         # Confirmation for command acceptance (set to 0 for no confirmation)
+    param1=0.0,             # Command-specific parameter 1
+    param2=0.0,             # Command-specific parameter 2
+    param3=0.0,             # Command-specific parameter 3
+    param4=0.0,             # Command-specific parameter 4
+    param5=0.0,             # Command-specific parameter 5
+    param6=0.0,             # Command-specific parameter 6
+    param7=0.0              # Command-specific parameter 7
+)
   
 
 PARAM_VALUE Message Example: 
@@ -261,4 +347,29 @@ mavlink_connection.mav.param_value_send(
     param_index=50 
 
 ) 
+
+
+or
+
+
+mavutil.mavlink.MAVLink_param_value_message(
+    param_id=b'PARAM1',  # Parameter ID (byte array, up to 16 characters)
+    param_value=42.0,    # Parameter value
+    param_type=mavutil.mavlink.MAV_PARAM_TYPE_REAL32,  # Parameter type (e.g., MAV_PARAM_TYPE_REAL32)
+    param_count=1,       # Total number of parameters
+    param_index=0        # Index of this parameter (set to 0 for single parameter)
+)
+
 ```
+
+
+# Message understanding
+
+### HEARTBEAT {type: 6, autopilot: 8, base_mode: 1, custom_mode: 0, system_status: 0, mavlink_version: 0}
+- type: 6 indicates that the system type is a Ground Control Station (GCS).
+- autopilot: 8 suggests that the autopilot or flight controller is identified as "8" (specific autopilot IDs can vary).
+- base_mode: 1 shows that the system is in a specific mode (flags are used to represent modes).
+- custom_mode: 0 might indicate that no custom mode is specified.
+- system_status: 0 suggests that the system status is normal or ready.
+- mavlink_version: 0 specifies the MAVLink protocol version (0 typically means unknown or default).
+

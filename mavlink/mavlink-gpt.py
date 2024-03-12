@@ -45,16 +45,15 @@ def receive_message(bind_ip, bind_port):
 
         # Create a MAVLink message from the received data
         mavlink_message = mavutil.mavlink.MAVLink(data)
-        receive_message = mavlink_message.unpack()
-        print(f"Received message: {receive_message}")
+        print(f"Received message: {mavlink_message}\n")
 
 # Run sender and receiver in separate threads
 if __name__ == "__main__":
     target_ip = "127.0.0.1"  # Use the target IP address (localhost in this case)
-    target_port = 3000  # Use the target port number
+    target_port = 14550  # Use the target port number
 
     bind_ip = "127.0.0.1"  # Use the IP address to bind the receiver socket
-    bind_port = 3000  # Use the port number to bind the receiver socket
+    bind_port = 14550  # Use the port number to bind the receiver socket
 
     # Create threads for sender and receiver
     sender_thread = threading.Thread(target=send_message, args=(target_ip, target_port))
