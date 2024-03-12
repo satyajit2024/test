@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "unistd.h": "c",
+        "winsock2.h": "c"
+    }
+}
