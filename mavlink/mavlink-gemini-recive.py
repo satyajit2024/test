@@ -12,22 +12,7 @@ server_address = ("localhost", 14550)
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(server_address)
 
-try:
-    while True:
-        data, addr = sock.recvfrom(1024)  # Adjust buffer size as needed
 
-        # Unpack the received data into a MAVLink object
-        # msg = mavutil.mavlink.MAVLink(data, 2, 1)
-
-        # data = data.decode("utf-8")
-        # msg = mavutil.mavlink.MAVLink(data, 2, 1)
-        # print(data)
-        # print(type(data))
-
-        print(data,"\n")
-        
-
-except KeyboardInterrupt:
-    exit
-finally:
-    sock.close()
+while True:
+    data, addr = sock.recvfrom(1024)  # Adjust buffer size as needed
+    print(data,"\n")
