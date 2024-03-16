@@ -6,20 +6,25 @@ sysid = 1
 compid = mavutil.mavlink.MAV_COMP_ID_GIMBAL  # Assuming Gimbal component
 
 # Define UDP connection details (localhost and port - change port if needed)
-server_address = ("192.168.0.121", 14550)
+server_address = ("192.168.240.153", 14550)
 
 # Create a UDP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Create a heartbeat message
 while True:
-    msg = mavutil.mavlink.MAVLink_heartbeat_message(
-        type=mavutil.mavlink.MAV_TYPE_GCS,  # or MAV_TYPE_ONBOARD_CONTROLLER if applicable
-        autopilot=mavutil.mavlink.MAV_AUTOPILOT_INVALID,
-        base_mode=mavutil.mavlink.MAV_MODE_FLAG_CUSTOM_MODE_ENABLED,
-        custom_mode=0,  # MAV_MODE_FLAG_TEST_ENABLED
-        system_status=0,  # MAV_MODE_FLAG_AUTO_ENABLED
-        mavlink_version=2,  # MAV_MODE_FLAG_GUIDED_ENABLED
-    )
+    msg = mavutil.mavlink.MAVLink_command_long_message(
+    target_system=1,        # Target system ID
+    target_component=compid,   # Target component ID
+    command=400,            # Command ID, refer to MAV_CMD enumeration for specific command
+    confirmation=0,         # Confirmation for command acceptance (set to 0 for no confirmation)
+    param1=0.0,             # Command-specific parameter 1
+    param2=0.0,             # Command-specific parameter 2
+    param3=0.0,             # Command-specific parameter 3
+    param4=0.0,             # Command-specific parameter 4
+    param5=0.0,             # Command-specific parameter 5
+    param6=0.0,             # Command-specific parameter 6
+    param7=0.0              # Command-specific parameter 7
+)
 
     print("Before pack.....",msg)
     print("type.....",type(msg))

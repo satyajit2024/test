@@ -2,7 +2,7 @@ from pymavlink import mavutil
 import time
 
 # Start a connection listening on a UDP port
-the_connection = mavutil.mavlink_connection('udpin:localhost:14550')
+the_connection = mavutil.mavlink_connection('udpout:192.168.0.121:14550')
 
 # Set the parameters for the HEARTBEAT message
 heartbeat_params = (6, 8, 192, 0, 3, 0)
