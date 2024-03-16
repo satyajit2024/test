@@ -15,4 +15,4 @@ sock.bind(server_address)
 
 while True:
     data, addr = sock.recvfrom(1024)  # Adjust buffer size as needed
-    print(data,"\n")
+    print(data, "\n")

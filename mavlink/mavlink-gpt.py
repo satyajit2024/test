@@ -4,13 +4,16 @@ import time
 import threading
 
 # Sender function
+
+
 def send_message(target_ip, target_port):
     # Create a UDP socket
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    master = mavutil.mavlink_connection("udpout:{}:{}".format(target_ip,target_port))
+    master = mavutil.mavlink_connection(
+        "udpout:{}:{}".format(target_ip, target_port))
 
-    server_address = (target_ip,target_port)
+    server_address = (target_ip, target_port)
     # Send a test message
     while True:
         msg = mavutil.mavlink.MAVLink_heartbeat_message(
@@ -21,11 +24,11 @@ def send_message(target_ip, target_port):
             system_status=0,  # MAV_MODE_FLAG_AUTO_ENABLED
             mavlink_version=0,  # MAV_MODE_FLAG_GUIDED_ENABLED
         )
-        data = msg.pack(mavutil.mavlink.MAVLink('', 2, 1))  # '2' is the mavlink version, '1' is the system ID
+        # '2' is the mavlink version, '1' is the system ID
+        data = msg.pack(mavutil.mavlink.MAVLink('', 2, 1))
         udp_socket.sendto(data, server_address)
-        print("Heart Beat Message.....",msg)
+        print("Heart Beat Message.....", msg)
         time.sleep(1)
-
 
 
 # Receiver function
@@ -47,17 +50,21 @@ def receive_message(bind_ip, bind_port):
         mavlink_message = mavutil.mavlink.MAVLink(data)
         print(f"Received message: {mavlink_message}\n")
 
+
 # Run sender and receiver in separate threads
 if __name__ == "__main__":
-    target_ip = "127.0.0.1"  # Use the target IP address (localhost in this case)
+    # Use the target IP address (localhost in this case)
+    target_ip = "127.0.0.1"
     target_port = 14550  # Use the target port number
 
     bind_ip = "127.0.0.1"  # Use the IP address to bind the receiver socket
     bind_port = 14550  # Use the port number to bind the receiver socket
 
     # Create threads for sender and receiver
-    sender_thread = threading.Thread(target=send_message, args=(target_ip, target_port))
-    receiver_thread = threading.Thread(target=receive_message, args=(bind_ip, bind_port))
+    sender_thread = threading.Thread(
+        target=send_message, args=(target_ip, target_port))
+    receiver_thread = threading.Thread(
+        target=receive_message, args=(bind_ip, bind_port))
 
     # Start both threads
     sender_thread.start()
