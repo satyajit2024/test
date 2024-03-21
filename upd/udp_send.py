@@ -1,7 +1,7 @@
 import socket
 import threading
 
-UDP_IP = "127.0.0.1"
+UDP_IP = "20.244.107.119"
 SEND_PORT = 5005
 # RECEIVE_PORT = 5006
 
@@ -9,7 +9,7 @@ SEND_PORT = 5005
 send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Create a UDP socket for receiving
-receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # receive_sock.bind((UDP_IP, RECEIVE_PORT))
 
 # def receive_messages():
@@ -26,4 +26,7 @@ receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 while True:
     # Get user input and send it
     message = input("Enter message: ")
+    if message == "exit":
+        send_sock.close()
+        break
     send_sock.sendto(message.encode('utf-8'), (UDP_IP, SEND_PORT))
