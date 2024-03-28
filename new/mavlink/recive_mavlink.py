@@ -12,8 +12,7 @@ from pymavlink import mavutil
 # print('Connected to:', address)
 
 # Create MAVLink connection
-mav_conn = mavutil.mavlink_connection(
-    'tcpin:localhost:5000')  # Connect to the TCP server
+mav_conn = mavutil.mavlink_connection('tcpin:localhost:14550')  # Connect to the TCP server
 
 while True:
     # Receive MAVLink message from vehicle
@@ -21,3 +20,4 @@ while True:
     if msg:
         print('Received:', msg)
         # Process the received message as needed
+

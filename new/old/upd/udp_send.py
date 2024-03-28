@@ -1,12 +1,12 @@
 import socket
 import threading
 
-UDP_IP = "20.244.107.119"
-SEND_PORT = 5005
+UDP_IP = "98.70.76.242"
+SEND_PORT = 14550
 # RECEIVE_PORT = 5006
 
 # Create a UDP socket for sending
-send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Create a UDP socket for receiving
 # receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

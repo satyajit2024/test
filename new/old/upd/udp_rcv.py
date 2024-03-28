@@ -1,15 +1,12 @@
 import socket
 
-UDP_IP = "127.0.0.1"
-RECEIVE_PORT = 5005
-# SEND_PORT = 5006
+UDP_IP = "localhost"
+RECEIVE_PORT = 14550
 
 # Create a UDP socket for receiving
-receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+receive_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 receive_sock.bind((UDP_IP, RECEIVE_PORT))
 
-# Create a UDP socket for sending
-send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 while True:
     # Wait for data

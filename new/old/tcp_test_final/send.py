@@ -2,8 +2,7 @@ from pymavlink import mavutil
 import time
 
 # Create MAVLink connection
-mav_conn = mavutil.mavlink_connection(
-    'tcp:0.tcp.in.ngrok.io:10444')  # Connect to the TCP server
+mav_conn = mavutil.mavlink_connection('tcp:98.70.76.242:14550')  # Connect to the TCP server
 
 while True:
     try:
@@ -21,7 +20,7 @@ while True:
         # Optionally, add a delay to control the message sending rate
         time.sleep(1)  # 1 second delay between messages
 
-    except KeyboardInterrupt:
+    except KeyboardInterrupt:   
         print("Keyboard interrupt detected. Exiting loop.")
         break
     except Exception as e:
