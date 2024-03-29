@@ -4,7 +4,7 @@ UDP_IP = "localhost"
 RECEIVE_PORT = 14550
 
 # Create a UDP socket for receiving
-receive_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+receive_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 receive_sock.bind((UDP_IP, RECEIVE_PORT))
 
 
@@ -14,5 +14,3 @@ while True:
     message = data.decode('utf-8')
     print(f"Received message: {message} from {addr}")
 
-    # Send the received data to port 5006
-    # send_sock.sendto(data, (UDP_IP, SEND_PORT))

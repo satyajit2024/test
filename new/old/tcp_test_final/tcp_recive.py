@@ -1,6 +1,6 @@
 import socket
 
-TCP_IP = "localhost"
+TCP_IP = "0.0.0.0"
 RECEIVE_PORT = 14550
 
 # Create a TCP socket for receiving
