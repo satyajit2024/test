@@ -2,12 +2,15 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from hello import new
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_django_project.settings')
     try:
+        if len(sys.argv) > 1 and sys.argv[1] == "runserver":
+            new()
+
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(

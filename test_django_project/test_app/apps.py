@@ -5,6 +5,6 @@ class TestAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'test_app'
 
-    def ready(self):
-        from hello import new
-        new()
+    # def ready(self):
+    #     # from hello import new
+    #     # new()
